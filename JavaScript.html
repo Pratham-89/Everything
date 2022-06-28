@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Javascript Trial!</title>
+</head>
+<body>
+	<p id="Output">Default text.</p>
+	<input id="city">
+	<button onclick="show_temp()">Submit</button>
+	<script type="text/javascript">
+		function show_temp(){
+			document.getElementById("Output").style.color = "red";
+			document.getElementById("Output").style.fontSize = "20px";
+			city = document.getElementById("city").value;
+
+			httpRequest = new XMLHttpRequest();
+			url = "https://api.weatherbit.io/v2.0/current?city="+city+"&key=3dc5a48f870e42e7a2f21123c1cdfa77";
+			httpRequest.open("GET", url); 
+			httpRequest.send();
+
+			httpRequest.onreadystatechange = function(){
+				if (this.readyState ==4 && this.status == 200) 
+				   {
+					user_data = JSON.parse(this.responseText);
+					document.getElementById("Output").innerHTML=user_data.data[0].temp;
+					}
+				}
+			}
+	</script>
+</body>
+</html>
